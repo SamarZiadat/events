@@ -14,7 +14,7 @@ for row in data:
     # Validate event type
     if row[0] not in ["INSERTED", "UPDATED", "DELETED"]:
         raise ValueError("Invalid event type:", row[0])
-    
+
     # Validate timestamp format
     try:
         datetime.strptime(row[-1], '%Y-%m-%d %H:%M:%S.%f')
@@ -72,6 +72,29 @@ def filter_by_field(csv_file, field_name):
             if field_name in fields_updated:
                 print(', '.join(row))  # Join elements of each row with a comma and print
 
+def filter_by_timestamp_range(csv_file, start_timestamp, end_timestamp):
+    """
+    Filter data by timestamp range and print to the terminal.
+    
+    Args:
+        csv_file (str): Path to the CSV file.
+        start_timestamp (str): Start timestamp in '%Y-%m-%d %H:%M:%S.%f' format.
+        end_timestamp (str): End timestamp in '%Y-%m-%d %H:%M:%S.%f' format.
+    """
+    try:
+        # Parse start and end timestamps
+        start_datetime = datetime.strptime(start_timestamp, '%Y-%m-%d %H:%M:%S.%f')
+        end_datetime = datetime.strptime(end_timestamp, '%Y-%m-%d %H:%M:%S.%f')
+    except ValueError:
+        raise ValueError("Invalid timestamp format")
+
+    with open(csv_file, 'r') as file:
+        reader = csv.reader(file)
+        next(reader)  # Skip the header row
+        for row in reader:
+            timestamp = datetime.strptime(row[-1], '%Y-%m-%d %H:%M:%S.%f')
+            if start_datetime <= timestamp <= end_datetime:
+                print(', '.join(row))  # Join elements of each row with a comma and print
 
 # System usage (printed to terminal):
 
@@ -90,3 +113,9 @@ print("\n")  # Add a newline for separation
 # Get all events affecting a particular field
 print("All events where status field is updated:")
 filter_by_field('events.csv', 'status')
+
+print("\n")  # Add a newline for separation
+
+# Get all events between two timestamps (inclusive)
+print("All events between 2018-04-10 12:40:00.000 and 2018-04-10 14:00:00.000 (inclusive):")
+filter_by_timestamp_range('events.csv', '2018-04-10 12:40:00.000', '2018-04-10 14:00:00.000')
