@@ -58,7 +58,7 @@ def filter_by_event_type(csv_file, event_type):
 
 def filter_by_field(csv_file, field_name):
     """
-    Filter data by a particular field and print to the terminal.
+    Filter data where event affects a particular field and print to the terminal.
     
     Args:
         csv_file (str): Path to the CSV file.
