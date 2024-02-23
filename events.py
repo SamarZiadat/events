@@ -30,6 +30,18 @@ with open('events.csv', 'w', newline='') as file:
     # Write the data rows
     writer.writerows(data)
 
+def print_all_data(csv_file):
+    """
+    Print all data from CSV file to the terminal.
+    
+    Args:
+        csv_file (str): Path to the CSV file.
+    """
+    with open(csv_file, 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            print(', '.join(row))  # Join elements of each row with a comma and print
+
 def filter_by_event_type(csv_file, event_type):
     """
     Filter data by event type and print to the terminal.
@@ -44,22 +56,27 @@ def filter_by_event_type(csv_file, event_type):
             if row[0] == event_type:
                 print(', '.join(row))  # Join elements of each row with a comma and print
 
-def print_all_data(csv_file):
+def filter_by_field(csv_file, field_name):
     """
-    Print all data from CSV file to the terminal.
+    Filter data by a particular field and print to the terminal.
     
     Args:
         csv_file (str): Path to the CSV file.
+        field_name (str): Field name to filter by.
     """
     with open(csv_file, 'r') as file:
         reader = csv.reader(file)
+        next(reader)  # Skip the header row
         for row in reader:
-            print(', '.join(row))  # Join elements of each row with a comma and print
+            fields_updated = row[3][1:-1].split(', ')  # Extract fields updated from the row
+            if field_name in fields_updated:
+                print(', '.join(row))  # Join elements of each row with a comma and print
+
 
 # System usage (printed to terminal):
 
-# Get all data
-print("All data:")
+# Get all event data
+print("All event data:")
 print_all_data('events.csv')
 
 print("\n")  # Add a newline for separation
@@ -67,3 +84,9 @@ print("\n")  # Add a newline for separation
 # Get all events of a specific event type
 print("All events where event type is 'INSERTED':")
 filter_by_event_type('events.csv', 'INSERTED')
+
+print("\n")  # Add a newline for separation
+
+# Get all events affecting a particular field
+print("All events where status field is updated:")
+filter_by_field('events.csv', 'status')
