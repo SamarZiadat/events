@@ -30,27 +30,40 @@ with open('events.csv', 'w', newline='') as file:
     # Write the data rows
     writer.writerows(data)
 
-# Open the CSV file for reading
-with open('events.csv', 'r') as file:
-    # Create a CSV reader object
-    reader = csv.reader(file)
+def filter_by_event_type(csv_file, event_type):
+    """
+    Filter data by event type and print to the terminal.
     
-    # Iterate over each row in the CSV file
-    for row in reader:
-        # Print each row to the terminal
-        print(', '.join(row))  # Join elements of each row with a comma and print
+    Args:
+        csv_file (str): Path to the CSV file.
+        event_type (str): Event type to filter by.
+    """
+    with open(csv_file, 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            if row[0] == event_type:
+                print(', '.join(row))  # Join elements of each row with a comma and print
 
-# Open the CSV file for reading
-with open('events.csv', 'r') as file:
-    # Create a CSV reader object
-    reader = csv.reader(file)
+def print_all_data(csv_file):
+    """
+    Print all data from CSV file to the terminal.
     
-    # Specify the event type to filter by
-    event_type_to_filter = "INSERTED"
-    
-    # Iterate over each row in the CSV file
-    for row in reader:
-        # Check if the current row has the desired event type
-        if row[0] == event_type_to_filter:
-            # Print the row to the terminal
+    Args:
+        csv_file (str): Path to the CSV file.
+    """
+    with open(csv_file, 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
             print(', '.join(row))  # Join elements of each row with a comma and print
+
+# System usage (printed to terminal):
+
+# Get all data
+print("All data:")
+print_all_data('events.csv')
+
+print("\n")  # Add a newline for separation
+
+# Get all events of a specific event type
+print("All events where event type is 'INSERTED':")
+filter_by_event_type('events.csv', 'INSERTED')
