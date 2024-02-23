@@ -16,3 +16,14 @@ with open('events.csv', 'w', newline='') as file:
     writer.writerow(["event type", "entity name", "entity id", "[fields updated]", "timestamp"])
     # Write the data rows
     writer.writerows(data)
+
+# Open the CSV file for reading
+with open('events.csv', 'r') as file:
+    # Create a CSV reader object
+    reader = csv.reader(file)
+    
+    # Iterate over each row in the CSV file
+    for row in reader:
+        # Print each row to the terminal
+        print(', '.join(row))  # Join elements of each row with a comma and print
+
