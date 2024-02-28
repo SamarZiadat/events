@@ -1,6 +1,6 @@
 # **Technical Test**
 
-I was assigned this scenario for a recent technical test. I used Python's csv module to create my solution.
+I was assigned this scenario for a recent technical test. I used Python's csv module to create my solution (which met all 4 requirements).
 
 ## **Scenario**
 
@@ -28,10 +28,14 @@ UPDATED, Placement, 13, [status, hoursPerDay, overtimeRate], 2018-04-10 14:52:43
 ## **Requirement**
 
 Develop a system that takes an events file as input and supports the following operations:
+
 Basic:
+
 1. Get all events of a specific event type
 2. Get all events affecting a particular field. For example, all events where the status changed.
+
 Advanced:
+
 3. Get all events that between two timestamps (inclusive)
 4. Allow combinations of (1), (2) and (3). For example, all UPDATED events where status changed
 between 2018-04-10 12:00:00.000 and 2018-04-10 12:00:11.500
