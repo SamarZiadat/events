@@ -8,7 +8,7 @@ A system generates events that are stored in a file in the following format:
 
 event type, entity name, entity id, [fields updated], timestamp
 
-## **Example:**
+**Example:**
 
 INSERTED, Placement, 12, null, 2018-04-10 12:34:56.789
 
@@ -18,14 +18,14 @@ UPDATED, Company, 123, [status, companyUrl], 2018-04-10 12:44:00.123
 
 UPDATED, Placement, 13, [status, hoursPerDay, overtimeRate], 2018-04-10 14:52:43.699
 
-## **Notes:**
+## **Notes**
 
  - event type – can be one of INSERTED, UPDATED, DELETED
  - timestamp always in yyyy-MM-dd HH:mm:ss.ms format 
  - fields updated – are the names of the fields rather than the field data
  - events may not be in timestamp order
 
-## **Requirement**
+## **Requirements**
 
 Develop a system that takes an events file as input and supports the following operations:
 
